@@ -1,0 +1,19 @@
+{
+  "name": "to-do",
+  "version": "1.0.0",
+  "description": "To Do application with basic CRUD functionalities",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress",
+    "watch": "webpack --progress --watch",
+    "start": "webpack serve --open"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  }
+}
