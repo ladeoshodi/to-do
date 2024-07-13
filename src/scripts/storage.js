@@ -1,6 +1,6 @@
 // using local storage to persist data
 
-class Storage {
+class StorageDB {
     // save to localStorage
     static create(id, data) {
         try {
@@ -24,23 +24,21 @@ class Storage {
         let projects = [];
         let keys = Object.keys(localStorage);
         keys.forEach((key) => {
-            // todo fix key
-            projects.push({key: JSON.parse(localStorage.getItem(key))});
+            projects.push({[key]: JSON.parse(localStorage.getItem(key))});
         });
         return projects;
     }
 
     // update an item in local storage
     static update(id, key, value) {
-        let project = this.get(id);
+        let project = this.retrieve(id);
         project[key] = value;
-        localStorage.setItem(String(this.id), JSON.stringify(project));
+        localStorage.setItem(String(id), JSON.stringify(project));
     }
 
     // delete an item from local storage
-    static delete(id) {
-        let project = this.get(id);
-        localStorage.removeItem(id);
+    static deleteItem(id) {
+        localStorage.removeItem(String(id));
     }
 
     // delete all items in local storage
@@ -49,4 +47,4 @@ class Storage {
     }
 }
 
-export default Storage;
+export default StorageDB;
