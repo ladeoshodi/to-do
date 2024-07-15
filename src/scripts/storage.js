@@ -32,8 +32,23 @@ class StorageDB {
     // update an item in local storage
     static update(id, key, value) {
         let project = this.retrieve(id);
-        project[key] = value;
+        if (Object.prototype.toString.call(project[key]) === "[object Array]") {
+            project[key].push(value);
+        } else {
+            project[key] = value;
+        }
         localStorage.setItem(String(id), JSON.stringify(project));
+    }
+
+    static removeArrayItem(id, key, value) {
+        let project = this.retrieve(id);
+        if (key === "tags" || key === "todoList") {
+            let index = project[key].indexOf(value);
+            if (index >= 0) {
+                project[key].splice(index, 1);
+            }
+            localStorage.setItem(String(id), JSON.stringify(project));
+        }
     }
 
     // delete an item from local storage
