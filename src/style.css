@@ -11,7 +11,7 @@ body {
     font-family: "Roboto", sans-serif;
     font-style: normal;
     display: grid;
-    grid-template-columns: 15% 1fr;
+    grid-template-columns: 20% 1fr;
     grid-template-areas: 
         "header header"
         "nav main";
@@ -68,4 +68,14 @@ ul > li {
 
 .main {
     grid-area: main;
+}
+
+@media screen and (max-width: 500px) {
+    body {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        "header"
+        "nav"
+        "main";
+    }
 }
