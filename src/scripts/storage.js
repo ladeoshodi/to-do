@@ -26,7 +26,7 @@ class StorageDB {
         let projects = [];
         let keys = Object.keys(localStorage);
         keys.forEach((key) => {
-            projects.push({[key]: JSON.parse(localStorage.getItem(key))});
+            projects.push(JSON.parse(localStorage.getItem(key)));
         });
         return projects;
     }
@@ -80,6 +80,7 @@ class Project {
     // save a new project in localStorage
     save() {
         let data = {
+            id: this.id,
             title: this.title,
             description: this.description,
             dueDate: this.dueDate,

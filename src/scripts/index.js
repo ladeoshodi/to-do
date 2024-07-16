@@ -3,6 +3,9 @@
 import { Project, StorageDB } from "./storage.js";
 import Display from "./display.js"
 
+// Display projects
+Display.displayProjects(StorageDB.retrieveAll());
+
 
 
 // debugging in the console
