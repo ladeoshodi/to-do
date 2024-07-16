@@ -3,10 +3,11 @@
 import { Project, StorageDB } from "./storage.js";
 import Display from "./display.js"
 
-// Display projects
-Display.displayProjects(StorageDB.retrieveAll());
+// display projects on nav
+Display.displayProjectsNav(StorageDB.retrieveAll());
 
-
+// display projects in main section
+Display.displayProjectsMain(StorageDB.retrieveAll());
 
 // debugging in the console
 let project1 = new Project("Project 1", "Project 1 Description");
