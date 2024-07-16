@@ -3,17 +3,22 @@
 const Display = (function () {
     
     function displayProjects(projects) {
-        const projectsView = document.querySelector(".project-list");
+        const projectList = document.querySelector(".project-list");
+        const ul = document.createElement("ul");
         if (projects.length === 0) {
-            projectsView.textContent = "No projects to display";
+            projectList.textContent = "No projects to display";
             return;
         } 
         for (let project of projects) {
-            const projectView = document.createElement("div");
-            projectView.textContent = project.title;
-            projectView.dataset.projectId = project.id
-            projectView.classList.add("project");
-            projectsView.appendChild(projectView);
+            const li = document.createElement("li");
+            const projectLink = document.createElement("a");
+            projectLink.href = "#";
+            projectLink.textContent = project.title;
+            projectLink.dataset.projectId = project.id
+            projectLink.classList.add("project");
+            li.appendChild(projectLink);
+            ul.appendChild(li);
+            projectList.appendChild(ul);
         }
     }
     
