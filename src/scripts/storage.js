@@ -1,5 +1,7 @@
-// using local storage to persist data
+// Model
 
+
+// using local storage to persist data
 class StorageDB {
     // save to localStorage
     static create(id, data) {
@@ -62,4 +64,30 @@ class StorageDB {
     }
 }
 
-export default StorageDB;
+
+// create a class for creating new Projects
+class Project {
+    id = Math.random();
+
+    constructor(title, description = "", dueDate = new Date().toJSON().slice(0, 10), tags = [], todoList = []) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.tags = tags;
+        this.todoList = todoList;
+    }
+
+    // save a new project in localStorage
+    save() {
+        let data = {
+            title: this.title,
+            description: this.description,
+            dueDate: this.dueDate,
+            tags: this.tags,
+            todoList: this.todoList
+        }
+        StorageDB.create(this.id, data);
+    }
+}
+
+export { Project, StorageDB };
