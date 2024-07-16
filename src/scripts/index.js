@@ -1,13 +1,12 @@
-// Controller 
-
 import { Project, StorageDB } from "./storage.js";
-import Display from "./display.js"
+import { Display } from "./display.js";
 
 // display projects on nav
 Display.displayProjectsNav(StorageDB.retrieveAll());
 
 // display projects in main section
 Display.displayProjectsMain(StorageDB.retrieveAll());
+
 
 // debugging in the console
 let project1 = new Project("Project 1", "Project 1 Description");
@@ -23,3 +22,4 @@ window.project3 = project3;
 window.project4 = project4;
 window.Project = Project;
 window.StorageDB = StorageDB;
+window.Display = Display;

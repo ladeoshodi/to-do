@@ -1,6 +1,3 @@
-// Model
-
-
 // using local storage to persist data
 class StorageDB {
     // save to localStorage

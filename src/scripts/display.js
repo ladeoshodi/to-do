@@ -1,9 +1,11 @@
-// View
+import { EventListeners } from "./controller.js";
 
 const Display = (function () {
     
     function displayProjectsNav(projects) {
-        const projectList = document.querySelector(".project-list");
+        const projectNavList = document.querySelector(".project-list");
+        // faux reset
+        projectNavList.replaceChildren();
         const ul = document.createElement("ul");
         if (projects.length === 0) {
             projectList.textContent = "No projects to display";
@@ -19,11 +21,13 @@ const Display = (function () {
             li.appendChild(projectLink);
             ul.appendChild(li);
         }
-        projectList.appendChild(ul);
+        projectNavList.appendChild(ul);
     }
     
     function displayProjectsMain(projects) {
         const projectMain = document.querySelector(".main");
+        // faux reset
+        projectMain.replaceChildren();
         if (projects.length === 0) {
             projectMain.textContent = "No projects to display";
             return;
@@ -66,17 +70,17 @@ const Display = (function () {
             const todoLegend = document.createElement("legend");
             todoLegend.textContent = "Todo List:";
             todoFieldset.appendChild(todoLegend);
-            for (let todo of project.todoList) {
+            for (let [index, todo] of project.todoList.entries()) {
                 const todoItem = document.createElement("div");
                 // create a checkbox for each todo item
                 const checkbox = document.createElement("input");
                 checkbox.type = "checkbox";
                 checkbox.name = "todo";
-                checkbox.id = "todo";
+                checkbox.id = `todo-${index}`;
                 checkbox.value = todo;
                 // create a label for each todo item
                 const label = document.createElement("label");
-                label.htmlFor = "todo";
+                label.htmlFor = `todo-${index}`;
                 label.textContent = todo;
                 
                 todoItem.appendChild(checkbox);
@@ -88,11 +92,13 @@ const Display = (function () {
             const addTodoLabel = document.createElement("label");
             const addTodoInput = document.createElement("input");
             addTodo.classList.add("add-todo");
-            addTodoLabel.htmlFor = "add-todo";
+            addTodoLabel.htmlFor = `add-todo-${project.id}`;
             addTodoLabel.textContent = "Add item: ";
-            addTodoInput.id = "add-todo";
+            addTodoInput.id = `add-todo-${project.id}`;
             addTodoInput.name = "add-todo";
             addTodoInput.placeholder = "Enter new todo item";
+            // add an event listener for the enter button
+            addTodoInput.addEventListener("keydown", EventListeners.addNewTodoItem);
             addTodo.appendChild(addTodoLabel);
             addTodo.appendChild(addTodoInput);
             todoFieldset.appendChild(addTodo);
@@ -102,13 +108,13 @@ const Display = (function () {
             // create an edit button
             const editBtn = document.createElement("button");
             editBtn.classList.add("edit-btn");
-            editBtn.textContent = "Edit Project"
+            editBtn.textContent = "Edit Project";
             projectSection.appendChild(editBtn);
 
             // create a delete button
             const deleteBtn = document.createElement("button");
             deleteBtn.classList.add("delete-btn");
-            deleteBtn.textContent = "Delete Project"
+            deleteBtn.textContent = "Delete Project";
             projectSection.appendChild(deleteBtn);
             
 
@@ -122,4 +128,4 @@ const Display = (function () {
 
 })();
 
-export default Display;
+export { Display };
