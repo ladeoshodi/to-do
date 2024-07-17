@@ -74,6 +74,15 @@ function updateProject(e, updateToDB=false) {
     }
 }
 
+function deleteProject(e) {
+    StorageDB.deleteItem(e.target.dataset.projectId);
+    // refresh nav section
+    Display.displayProjectsNav(StorageDB.retrieveAll());
+
+    // refresh main section
+    Display.displayProjectsMain(StorageDB.retrieveAll());
+}
+
 function createNewTodo(e) {
     if (e.key === "Enter") {
         let id = e.target.id.split("-")[2];
@@ -210,9 +219,7 @@ const Display = (function () {
             deleteBtn.type = "button";
             deleteBtn.dataset.projectId = project.id;
             // add an event listener to delete button
-            deleteBtn.addEventListener("click", (e) => {
-
-            });
+            deleteBtn.addEventListener("click", (e) => { deleteProject(e) });
             projectSection.appendChild(deleteBtn);
             
 
