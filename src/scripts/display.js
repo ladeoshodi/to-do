@@ -100,7 +100,7 @@ const Display = (function () {
             // add an event listener for the enter button
             addTodoInput.addEventListener("keydown", (e) => {
                 if (e.key === "Enter") {
-                    let id = e.target.parentElement.parentElement.parentElement.dataset.projectId;
+                    let id = e.target.id.split("-")[2];
                     let key = "todoList";
                     let value = e.target.value;
                     StorageDB.update(id, key, value);
