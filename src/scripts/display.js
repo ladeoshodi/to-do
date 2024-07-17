@@ -1,4 +1,52 @@
-import { StorageDB } from "./storage.js";
+import { Project, StorageDB } from "./storage.js";
+
+// dialog box form fields
+const openDialogForm = document.querySelector("#open-dialog-form");
+const dialogForm = document.querySelector("#dialog-form");
+const addProjectBtn = document.querySelector("#add-project-btn");
+const dialogProjectName = document.querySelector("#dialog-project-name");
+const dialogProjectDescription = document.querySelector("#dialog-project-description");
+const dialogProjectDueDate = document.querySelector("#dialog-project-duedate");
+const dialogProjectTags = document.querySelector("#dialog-project-tags");
+
+function createNewProject(e) {
+    e.preventDefault();
+    if (dialogProjectName.value === "") {
+        dialogProjectName.reportValidity();
+        return;
+    }
+    const project = new Project(
+        dialogProjectName.value,
+        dialogProjectDescription.value,
+        dialogProjectDueDate.value,
+        dialogProjectTags.value.split(" ")
+    )
+    project.save();
+
+    // clear form fields
+    dialogProjectName.value = "";
+    dialogProjectDescription.value = "";
+    dialogProjectDueDate.value = "";
+    dialogProjectTags.value = "";
+
+    // refresh nav section
+    Display.displayProjectsNav(StorageDB.retrieveAll());
+
+    // refresh main section
+    Display.displayProjectsMain(StorageDB.retrieveAll());
+
+    dialogForm.close();
+}
+
+function createNewTodo(e) {
+    if (e.key === "Enter") {
+        let id = e.target.id.split("-")[2];
+        let key = "todoList";
+        let value = e.target.value;
+        StorageDB.update(id, key, value);
+        Display.displayProjectsMain(StorageDB.retrieveAll());
+    }
+}
 
 const Display = (function () {
     
@@ -98,15 +146,7 @@ const Display = (function () {
             addTodoInput.name = `add-todo-${project.id}`;
             addTodoInput.placeholder = "Enter new todo item";
             // add an event listener for the enter button
-            addTodoInput.addEventListener("keydown", (e) => {
-                if (e.key === "Enter") {
-                    let id = e.target.id.split("-")[2];
-                    let key = "todoList";
-                    let value = e.target.value;
-                    StorageDB.update(id, key, value);
-                    displayProjectsMain(StorageDB.retrieveAll());
-                }
-            });
+            addTodoInput.addEventListener("keydown", createNewTodo);
             addTodo.appendChild(addTodoLabel);
             addTodo.appendChild(addTodoInput);
             todoFieldset.appendChild(addTodo);
@@ -135,5 +175,21 @@ const Display = (function () {
     return { displayProjectsNav, displayProjectsMain };
 
 })();
+
+
+
+// display projects on nav
+Display.displayProjectsNav(StorageDB.retrieveAll());
+
+// display projects in main section
+Display.displayProjectsMain(StorageDB.retrieveAll());
+
+// Open dialog box
+openDialogForm.addEventListener("click", () => {
+    dialogForm.showModal();
+});
+
+// Create a new project via the dialog box form
+addProjectBtn.addEventListener("click", createNewProject);
 
 export { Display };
