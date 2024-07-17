@@ -18,6 +18,9 @@ const Display = (function () {
             projectLink.textContent = project.title;
             projectLink.dataset.projectId = project.id
             projectLink.classList.add("project");
+            projectLink.addEventListener("click", (e) => {
+                Eventhandler.viewProject(e);
+            })
             li.appendChild(projectLink);
             ul.appendChild(li);
         }
@@ -130,7 +133,9 @@ const Display = (function () {
             deleteBtn.type = "button";
             deleteBtn.dataset.projectId = project.id;
             // add an event listener to delete button
-            deleteBtn.addEventListener("click", (e) => { Eventhandler.deleteProject(e) });
+            deleteBtn.addEventListener("click", (e) => { 
+                Eventhandler.deleteProject(e) 
+            });
             projectSection.appendChild(deleteBtn);
             
 

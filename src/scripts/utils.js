@@ -1,4 +1,5 @@
 import { Project, StorageDB } from "./storage.js";
+import { Display } from "./display.js";
 
 const Eventhandler = (function () {
     const dialogProjectName = document.querySelector("#dialog-project-name");
@@ -78,8 +79,17 @@ const Eventhandler = (function () {
         location.reload();
     }
     
+    function viewProject(e) {
+        let projects = StorageDB.retrieveAll();
+        let project = projects.filter((project) => {
+            return String(project.id) === e.target.dataset.projectId
+        });
+        console.log(project);
+        Display.displayProjectsMain(project);
 
-    return { createNewProject, updateProject, deleteProject, createNewTodo, deleteTodoItem };
+    }
+
+    return { createNewProject, updateProject, deleteProject, createNewTodo, deleteTodoItem, viewProject };
 })();
 
 
