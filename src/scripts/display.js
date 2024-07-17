@@ -1,105 +1,4 @@
-import { Project, StorageDB } from "./storage.js";
-
-// dialog box form fields
-const openDialogForm = document.querySelector("#open-dialog-form");
-const dialogForm = document.querySelector("#dialog-form");
-const dialogEditForm = document.querySelector("#dialog-edit-form");
-const addProjectBtn = document.querySelector("#add-project-btn");
-const editProjectBtn = document.querySelector("#edit-project-btn");
-const dialogProjectName = document.querySelector("#dialog-project-name");
-const dialogEditProjectName = document.querySelector("#dialog-edit-project-name");
-const dialogProjectDescription = document.querySelector("#dialog-project-description");
-const dialogEditProjectDescription = document.querySelector("#dialog-edit-project-description");
-const dialogProjectDueDate = document.querySelector("#dialog-project-duedate");
-const dialogEditProjectDueDate = document.querySelector("#dialog-edit-project-duedate");
-const dialogProjectTags = document.querySelector("#dialog-project-tags");
-const dialogEditProjectTags = document.querySelector("#dialog-edit-project-tags");
-
-function createNewProject(e) {
-    e.preventDefault();
-    if (dialogProjectName.value === "") {
-        dialogProjectName.reportValidity();
-        return;
-    }
-    const project = new Project(
-        dialogProjectName.value,
-        dialogProjectDescription.value,
-        dialogProjectDueDate.value,
-        dialogProjectTags.value.split(" ")
-    )
-    project.save();
-
-    // clear form fields
-    dialogProjectName.value = "";
-    dialogProjectDescription.value = "";
-    dialogProjectDueDate.value = "";
-    dialogProjectTags.value = "";
-
-    // refresh nav section
-    Display.displayProjectsNav(StorageDB.retrieveAll());
-
-    // refresh main section
-    Display.displayProjectsMain(StorageDB.retrieveAll());
-
-    dialogForm.close();
-}
-
-function updateProject(e, updateToDB=false) {
-    e.preventDefault();
-    const currentProject = StorageDB.retrieve(e.target.dataset.projectId);
-    if (updateToDB) {
-        if (dialogEditProjectName.value === "") {
-            dialogEditProjectName.reportValidity();
-            return;
-        }
-        // save the new values from the dom
-        StorageDB.update(currentProject.id, "title", dialogEditProjectName.value);
-        StorageDB.update(currentProject.id, "description", dialogEditProjectDescription.value);
-        StorageDB.update(currentProject.id, "dueDate", dialogEditProjectDueDate.value);
-        StorageDB.update(currentProject.id, "tags", dialogEditProjectTags.value.split(" "));
-
-        // refresh nav section
-        Display.displayProjectsNav(StorageDB.retrieveAll());
-
-        // refresh main section
-        Display.displayProjectsMain(StorageDB.retrieveAll());
-
-        dialogEditForm.close();
-    } else {
-        // update edit form with current project values
-        dialogEditProjectName.value = currentProject.title;
-        dialogEditProjectDescription.value = currentProject.description;
-        dialogEditProjectDueDate.value = currentProject.dueDate;
-        dialogEditProjectTags.value = currentProject.tags;
-    }
-}
-
-function deleteProject(e) {
-    StorageDB.deleteItem(e.target.dataset.projectId);
-    // refresh nav section
-    Display.displayProjectsNav(StorageDB.retrieveAll());
-
-    // refresh main section
-    Display.displayProjectsMain(StorageDB.retrieveAll());
-}
-
-function createNewTodo(e) {
-    if (e.key === "Enter") {
-        let id = e.target.id.split("-")[2];
-        let key = "todoList";
-        let value = e.target.value;
-        StorageDB.update(id, key, value);
-        Display.displayProjectsMain(StorageDB.retrieveAll());
-    }
-}
-
-
-function deleteTodoItem(e) {
-    StorageDB.removeArrayItem(e.target.id.split("-")[2], "todoList", e.target.value);
-
-    // refresh main section
-    Display.displayProjectsMain(StorageDB.retrieveAll());
-}
+import { Eventhandler } from "./utils.js";
 
 const Display = (function () {
     
@@ -180,7 +79,7 @@ const Display = (function () {
                 checkbox.id = `todo-${index}-${project.id}`;
                 checkbox.value = todo;
                 // add event listener to each checkbox
-                checkbox.addEventListener("change", deleteTodoItem);
+                checkbox.addEventListener("change", Eventhandler.deleteTodoItem);
                 // create a label for each todo item
                 const label = document.createElement("label");
                 label.htmlFor = `todo-${index}-${project.id}`;
@@ -201,7 +100,7 @@ const Display = (function () {
             addTodoInput.name = `add-todo-${project.id}`;
             addTodoInput.placeholder = "Enter new todo item";
             // add an event listener for the enter button
-            addTodoInput.addEventListener("keydown", createNewTodo);
+            addTodoInput.addEventListener("keydown", Eventhandler.createNewTodo);
             addTodo.appendChild(addTodoLabel);
             addTodo.appendChild(addTodoInput);
             todoFieldset.appendChild(addTodo);
@@ -216,9 +115,11 @@ const Display = (function () {
             editBtn.dataset.projectId = project.id;
             // add an event listener to edit button
             editBtn.addEventListener("click", (e) => { 
+                const dialogEditForm = document.querySelector("#dialog-edit-form");
+                const editProjectBtn = document.querySelector("#edit-project-btn");
                 dialogEditForm.showModal();
                 editProjectBtn.dataset.projectId = project.id;
-                updateProject(e, false);
+                Eventhandler.updateProject(e, false);
             });
             projectSection.appendChild(editBtn);
 
@@ -229,7 +130,7 @@ const Display = (function () {
             deleteBtn.type = "button";
             deleteBtn.dataset.projectId = project.id;
             // add an event listener to delete button
-            deleteBtn.addEventListener("click", (e) => { deleteProject(e) });
+            deleteBtn.addEventListener("click", (e) => { Eventhandler.deleteProject(e) });
             projectSection.appendChild(deleteBtn);
             
 
@@ -242,24 +143,5 @@ const Display = (function () {
     return { displayProjectsNav, displayProjectsMain };
 
 })();
-
-
-
-// display projects on nav
-Display.displayProjectsNav(StorageDB.retrieveAll());
-
-// display projects in main section
-Display.displayProjectsMain(StorageDB.retrieveAll());
-
-// Open dialog box
-openDialogForm.addEventListener("click", () => {
-    dialogForm.showModal();
-});
-
-// Create a new project via the dialog box form
-addProjectBtn.addEventListener("click", (e) => createNewProject(e));
-
-// Update project via dialog box
-editProjectBtn.addEventListener("click", (e) => updateProject(e, true));
 
 export { Display };

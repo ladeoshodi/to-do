@@ -66,7 +66,7 @@ class StorageDB {
 class Project {
     id = Math.random();
 
-    constructor(title, description = "", dueDate = new Date().toJSON().slice(0, 10), tags = [], todoList = []) {
+    constructor(title, description, dueDate, tags, todoList = []) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
