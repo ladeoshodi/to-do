@@ -31,7 +31,7 @@ class StorageDB {
     // update an item in local storage
     static update(id, key, value) {
         let project = this.retrieve(id);
-        if (Object.prototype.toString.call(project[key]) === "[object Array]") {
+        if (key === "todoList") {
             project[key].push(value);
         } else {
             project[key] = value;

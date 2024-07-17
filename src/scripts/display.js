@@ -3,11 +3,17 @@ import { Project, StorageDB } from "./storage.js";
 // dialog box form fields
 const openDialogForm = document.querySelector("#open-dialog-form");
 const dialogForm = document.querySelector("#dialog-form");
+const dialogEditForm = document.querySelector("#dialog-edit-form");
 const addProjectBtn = document.querySelector("#add-project-btn");
+const editProjectBtn = document.querySelector("#edit-project-btn");
 const dialogProjectName = document.querySelector("#dialog-project-name");
+const dialogEditProjectName = document.querySelector("#dialog-edit-project-name");
 const dialogProjectDescription = document.querySelector("#dialog-project-description");
+const dialogEditProjectDescription = document.querySelector("#dialog-edit-project-description");
 const dialogProjectDueDate = document.querySelector("#dialog-project-duedate");
+const dialogEditProjectDueDate = document.querySelector("#dialog-edit-project-duedate");
 const dialogProjectTags = document.querySelector("#dialog-project-tags");
+const dialogEditProjectTags = document.querySelector("#dialog-edit-project-tags");
 
 function createNewProject(e) {
     e.preventDefault();
@@ -36,6 +42,36 @@ function createNewProject(e) {
     Display.displayProjectsMain(StorageDB.retrieveAll());
 
     dialogForm.close();
+}
+
+function updateProject(e, updateToDB=false) {
+    e.preventDefault();
+    const currentProject = StorageDB.retrieve(e.target.dataset.projectId);
+    if (updateToDB) {
+        if (dialogEditProjectName.value === "") {
+            dialogEditProjectName.reportValidity();
+            return;
+        }
+        // save the new values from the dom
+        StorageDB.update(currentProject.id, "title", dialogEditProjectName.value);
+        StorageDB.update(currentProject.id, "description", dialogEditProjectDescription.value);
+        StorageDB.update(currentProject.id, "dueDate", dialogEditProjectDueDate.value);
+        StorageDB.update(currentProject.id, "tags", dialogEditProjectTags.value.split(" "));
+
+        // refresh nav section
+        Display.displayProjectsNav(StorageDB.retrieveAll());
+
+        // refresh main section
+        Display.displayProjectsMain(StorageDB.retrieveAll());
+
+        dialogEditForm.close();
+    } else {
+        // update edit form with current project values
+        dialogEditProjectName.value = currentProject.title;
+        dialogEditProjectDescription.value = currentProject.description;
+        dialogEditProjectDueDate.value = currentProject.dueDate;
+        dialogEditProjectTags.value = currentProject.tags;
+    }
 }
 
 function createNewTodo(e) {
@@ -157,12 +193,26 @@ const Display = (function () {
             const editBtn = document.createElement("button");
             editBtn.classList.add("edit-btn");
             editBtn.textContent = "Edit Project";
+            editBtn.type = "button";
+            editBtn.dataset.projectId = project.id;
+            // add an event listener to edit button
+            editBtn.addEventListener("click", (e) => { 
+                dialogEditForm.showModal();
+                editProjectBtn.dataset.projectId = project.id;
+                updateProject(e, false);
+            });
             projectSection.appendChild(editBtn);
 
             // create a delete button
             const deleteBtn = document.createElement("button");
             deleteBtn.classList.add("delete-btn");
             deleteBtn.textContent = "Delete Project";
+            deleteBtn.type = "button";
+            deleteBtn.dataset.projectId = project.id;
+            // add an event listener to delete button
+            deleteBtn.addEventListener("click", (e) => {
+
+            });
             projectSection.appendChild(deleteBtn);
             
 
@@ -190,6 +240,9 @@ openDialogForm.addEventListener("click", () => {
 });
 
 // Create a new project via the dialog box form
-addProjectBtn.addEventListener("click", createNewProject);
+addProjectBtn.addEventListener("click", (e) => createNewProject(e));
+
+// Update project via dialog box
+editProjectBtn.addEventListener("click", (e) => updateProject(e, true));
 
 export { Display };

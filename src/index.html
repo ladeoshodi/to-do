@@ -46,6 +46,31 @@
             <div class="project-list"></div>
         </div>
     </nav>
-    <main class="main"></main>
+    <main>
+        <dialog id="dialog-edit-form">
+            <form>
+                <p>Edit project</p>
+                <div class="dialog-edit-project-name">
+                    <label for="dialog-edit-project-name">Project name:</label>
+                    <input type="text" name="dialog-edit-project-name" id="dialog-edit-project-name" placeholder="Enter a name for your project" required>
+                </div>
+                <div class="dialog-edit-project-description">
+                    <label for="dialog-edit-project-description">Project Description:</label>
+                    <input type="text" name="dialog-edit-project-description" id="dialog-edit-project-description" placeholder="Enter description">
+                </div>
+                <div class="dialog-edit-project-duedate">
+                    <label for="dialog-edit-project-duedate">Due Date:</label>
+                    <input type="date" name="dialog-edit-project-duedate" id="dialog-edit-project-duedate">
+                </div>
+                <div class="dialog-edit-project-tags">
+                    <label for="dialog-edit-project-tags">Project tags:</label>
+                    <input type="text" name="dialog-edit-project-tags" id="dialog-edit-project-tags" placeholder="Separate tags with space">
+                </div>
+                <button id="cancel-edit-project-btn" value="cancel" formmethod="dialog" formnovalidate> Cancel</button>
+                <button id="edit-project-btn" class="project-btn">Update project</button>
+            </form>
+        </dialog>
+        <div class="main"></div>
+    </main>
 </body>
 </html>
