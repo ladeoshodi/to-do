@@ -18,7 +18,30 @@
             </ul>
         </div>
         <div class="projects">
-            <button class="project-btn">Add New Project</button>
+            <button id="open-dialog-form" class="project-btn">Add New Project</button>
+            <dialog id="dialog-form">
+                <form>
+                    <p>Create a new project</p>
+                    <div class="dialog-project-name">
+                        <label for="dialog-project-name">Project name:</label>
+                        <input type="text" name="dialog-project-name" id="dialog-project-name" placeholder="Enter a name for your project" required>
+                    </div>
+                    <div class="dialog-project-description">
+                        <label for="dialog-project-description">Project Description:</label>
+                        <input type="text" name="dialog-project-description" id="dialog-project-description" placeholder="Enter description">
+                    </div>
+                    <div class="dialog-project-duedate">
+                        <label for="dialog-project-duedate">Due Date:</label>
+                        <input type="date" name="dialog-project-duedate" id="dialog-project-duedate">
+                    </div>
+                    <div class="dialog-project-tags">
+                        <label for="dialog-project-tags">Project tags:</label>
+                        <input type="text" name="dialog-project-tags" id="dialog-project-tags" placeholder="Separate tags with space">
+                    </div>
+                    <button id="cancel-project-btn" value="cancel" formmethod="dialog" formnovalidate> Cancel</button>
+                    <button id="add-project-btn" class="project-btn">Add project</button>
+                </form>
+            </dialog>
             <hr >
             <div class="project-list"></div>
         </div>
