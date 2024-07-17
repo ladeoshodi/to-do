@@ -1,4 +1,4 @@
-import { EventListeners } from "./controller.js";
+import { StorageDB } from "./storage.js";
 
 const Display = (function () {
     
@@ -75,12 +75,12 @@ const Display = (function () {
                 // create a checkbox for each todo item
                 const checkbox = document.createElement("input");
                 checkbox.type = "checkbox";
-                checkbox.name = "todo";
-                checkbox.id = `todo-${index}`;
+                checkbox.name = `todo-${index}-${project.id}`;
+                checkbox.id = `todo-${index}-${project.id}`;
                 checkbox.value = todo;
                 // create a label for each todo item
                 const label = document.createElement("label");
-                label.htmlFor = `todo-${index}`;
+                label.htmlFor = `todo-${index}-${project.id}`;
                 label.textContent = todo;
                 
                 todoItem.appendChild(checkbox);
@@ -95,10 +95,18 @@ const Display = (function () {
             addTodoLabel.htmlFor = `add-todo-${project.id}`;
             addTodoLabel.textContent = "Add item: ";
             addTodoInput.id = `add-todo-${project.id}`;
-            addTodoInput.name = "add-todo";
+            addTodoInput.name = `add-todo-${project.id}`;
             addTodoInput.placeholder = "Enter new todo item";
             // add an event listener for the enter button
-            addTodoInput.addEventListener("keydown", EventListeners.addNewTodoItem);
+            addTodoInput.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    let id = e.target.parentElement.parentElement.parentElement.dataset.projectId;
+                    let key = "todoList";
+                    let value = e.target.value;
+                    StorageDB.update(id, key, value);
+                    displayProjectsMain(StorageDB.retrieveAll());
+                }
+            });
             addTodo.appendChild(addTodoLabel);
             addTodo.appendChild(addTodoInput);
             todoFieldset.appendChild(addTodo);
