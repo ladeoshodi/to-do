@@ -93,6 +93,14 @@ function createNewTodo(e) {
     }
 }
 
+
+function deleteTodoItem(e) {
+    StorageDB.removeArrayItem(e.target.id.split("-")[2], "todoList", e.target.value);
+
+    // refresh main section
+    Display.displayProjectsMain(StorageDB.retrieveAll());
+}
+
 const Display = (function () {
     
     function displayProjectsNav(projects) {
@@ -171,6 +179,8 @@ const Display = (function () {
                 checkbox.name = `todo-${index}-${project.id}`;
                 checkbox.id = `todo-${index}-${project.id}`;
                 checkbox.value = todo;
+                // add event listener to each checkbox
+                checkbox.addEventListener("change", deleteTodoItem);
                 // create a label for each todo item
                 const label = document.createElement("label");
                 label.htmlFor = `todo-${index}-${project.id}`;
