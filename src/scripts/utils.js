@@ -2,10 +2,12 @@ import { Project, StorageDB } from "./storage.js";
 import { Display } from "./display.js";
 
 const Eventhandler = (function () {
+    const dialogForm = document.querySelector("#dialog-form");
     const dialogProjectName = document.querySelector("#dialog-project-name");
     const dialogProjectDescription = document.querySelector("#dialog-project-description");
     const dialogProjectDueDate = document.querySelector("#dialog-project-duedate");
     const dialogProjectTags = document.querySelector("#dialog-project-tags");
+    const dialogEditForm = document.querySelector("#dialog-edit-form");
     const dialogEditProjectName = document.querySelector("#dialog-edit-project-name");
     const dialogEditProjectDescription = document.querySelector("#dialog-edit-project-description");
     const dialogEditProjectDueDate = document.querySelector("#dialog-edit-project-duedate");
@@ -25,8 +27,10 @@ const Eventhandler = (function () {
         )
         project.save();
 
-        // refresh the page
-        location.reload();
+        // reload the main and nav
+        dialogForm.close();
+        Display.displayProjectsMain(StorageDB.retrieveAll());
+        Display.displayProjectsNav(StorageDB.retrieveAll());
     }
 
     function updateProject(e, updateToDB=false) {
@@ -43,8 +47,10 @@ const Eventhandler = (function () {
             StorageDB.update(currentProject.id, "dueDate", dialogEditProjectDueDate.value);
             StorageDB.update(currentProject.id, "tags", dialogEditProjectTags.value.split(" "));
 
-            // refresh the page
-            location.reload()
+            // reload the main and nav
+            dialogEditForm.close();
+            Display.displayProjectsMain(StorageDB.retrieveAll());
+            Display.displayProjectsNav(StorageDB.retrieveAll());
         } else {
             // update edit form with current project values
             dialogEditProjectName.value = currentProject.title;
@@ -56,8 +62,10 @@ const Eventhandler = (function () {
 
     function deleteProject(e) {
         StorageDB.deleteItem(e.target.dataset.projectId);
-        // refresh page
-        location.reload();
+
+        // reload the main and nav
+        Display.displayProjectsMain(StorageDB.retrieveAll());
+        Display.displayProjectsNav(StorageDB.retrieveAll());
     }
 
     function createNewTodo(e) {
@@ -67,16 +75,16 @@ const Eventhandler = (function () {
             let value = e.target.value;
             StorageDB.update(id, key, value);
 
-            // refresh page
-            location.reload();
+            // reload the main div
+            Display.displayProjectsMain(StorageDB.retrieveAll());
         }
     }
 
     function deleteTodoItem(e) {
         StorageDB.removeArrayItem(e.target.id.split("-")[2], "todoList", e.target.value);
     
-        // refresh page
-        location.reload();
+        // reload the main div
+        Display.displayProjectsMain(StorageDB.retrieveAll());
     }
     
     function viewProject(e) {
@@ -84,7 +92,6 @@ const Eventhandler = (function () {
         let project = projects.filter((project) => {
             return String(project.id) === e.target.dataset.projectId
         });
-        console.log(project);
         Display.displayProjectsMain(project);
 
     }
@@ -93,4 +100,4 @@ const Eventhandler = (function () {
 })();
 
 
-export { Eventhandler }
+export { Eventhandler };
