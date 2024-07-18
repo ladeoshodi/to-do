@@ -7,6 +7,7 @@
 }
 
 body {
+    height: 100vh;
     background-color: #f6ebeb;
     font-family: "Roboto", sans-serif;
     font-style: normal;
@@ -67,7 +68,52 @@ ul > li {
 
 .main {
     grid-area: main;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
+
+/* section div styling */
+.section {
+    padding: 20px;
+    margin: 20px 15px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.section > div {
+    margin-bottom: 8px;
+}
+
+.project-title {
+    font-size: 2rem;
+    font-weight: 700;
+}
+.project-description {
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.project-description::before {
+    content: "🗒️ ";
+}
+
+.project-due-date::before {
+    content: "⏰ ";
+}
+
+.project-tags {
+    color: #151593;
+    font-weight: 500;
+}
+
+.project-todo-list {
+    border: none;
+}
+
+.project-todo-list legend {
+    font-weight: 700;
+}
+
 
 @media screen and (max-width: 500px) {
     body {
@@ -77,4 +123,10 @@ ul > li {
         "nav"
         "main";
     }
+}
+
+@media screen and (min-width: 750px) {
+    body {
+        grid-auto-rows: 86px 1fr;
+    }  
 }

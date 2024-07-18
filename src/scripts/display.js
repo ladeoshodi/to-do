@@ -38,6 +38,7 @@ const Display = (function () {
         for (let project of projects) {
             // Create section container
             const projectSection = document.createElement("section");
+            projectSection.classList.add("section");
             projectSection.dataset.projectId = project.id;
 
             // display for project title
@@ -55,6 +56,9 @@ const Display = (function () {
             // display for project due date
             const projectDueDate = document.createElement("div");
             projectDueDate.textContent = `Due Date: ${project.dueDate}`;
+            if (project.dueDate <= new Date().toJSON().slice(0, 10)) {
+                projectDueDate.style.color = "#e24545";
+            }
             projectDueDate.classList.add("project-due-date");
             projectSection.appendChild(projectDueDate);
 
