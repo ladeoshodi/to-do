@@ -12,17 +12,14 @@ const Display = (function () {
             return;
         } 
         for (let project of projects) {
-            const li = document.createElement("li");
-            const projectLink = document.createElement("a");
-            projectLink.href = "#";
+            const projectLink = document.createElement("li");
             projectLink.textContent = project.title;
             projectLink.dataset.projectId = project.id
             projectLink.classList.add("project");
             projectLink.addEventListener("click", (e) => {
                 Eventhandler.viewProject(e);
-            })
-            li.appendChild(projectLink);
-            ul.appendChild(li);
+            });
+            ul.appendChild(projectLink);
         }
         projectNavList.appendChild(ul);
     }

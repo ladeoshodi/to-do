@@ -40,13 +40,24 @@ ul > li {
 
 .nav {
     grid-area: nav;
-    padding: 15px;
+    padding: 15px 0;
     background-color: white;
     text-align: center;
 }
 
 .nav * {
     margin-bottom: 10px;
+}
+
+.nav li {
+    padding: 8px;
+    color: rgb(231, 127, 0);
+}
+
+.nav li:hover {
+    background-color: rgb(231, 127, 0);
+    color: white;
+    cursor: pointer;
 }
 
 .project-btn {
