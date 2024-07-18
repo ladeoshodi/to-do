@@ -61,7 +61,7 @@ const Display = (function () {
             const projectDueDate = document.createElement("div");
             projectDueDate.textContent = `Due Date: ${project.dueDate}`;
             if (project.dueDate <= new Date().toJSON().slice(0, 10)) {
-                projectDueDate.style.color = "#e24545";
+                projectDueDate.style.color = "#9c0d0d";
             }
             projectDueDate.classList.add("project-due-date");
             projectSection.appendChild(projectDueDate);
@@ -98,9 +98,10 @@ const Display = (function () {
             const addTodo = document.createElement("div");
             const addTodoLabel = document.createElement("label");
             const addTodoInput = document.createElement("input");
+            addTodoInput.type = "text";
             addTodo.classList.add("add-todo");
             addTodoLabel.htmlFor = `add-todo-${project.id}`;
-            addTodoLabel.textContent = "Add item: ";
+            // addTodoLabel.textContent = "Add item: ";
             addTodoInput.id = `add-todo-${project.id}`;
             addTodoInput.name = `add-todo-${project.id}`;
             addTodoInput.placeholder = "Enter new todo item";

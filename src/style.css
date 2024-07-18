@@ -30,7 +30,7 @@ ul > li {
 .header {
     grid-area: header;
     padding: 15px;
-    background-color: rgb(97 97 237);
+    background-color: rgb(21, 21, 147);
     color: rgb(231, 127, 0);
     font-size: 3rem;
     font-weight: 700;
@@ -53,14 +53,14 @@ ul > li {
     padding: 10px 15px;
     border-radius: 5px;
     border: none;
-    background-color: rgb(156 13 13);
+    background-color: rgb(231, 127, 0);
     color: white;
     margin-bottom: 20px;
 }
 
 .project-btn:hover {
     cursor: pointer;
-    border: 2px solid rgb(156 13 13);
+    border: 2px solid rgb(231, 127, 0);
     background-color: white;
     color: rgb(231, 127, 0);
 }
@@ -106,24 +106,66 @@ ul > li {
     font-weight: 500;
 }
 
-.project-todo-list {
-    border: none;
-}
-
 .project-todo-list::first-line {
     font-weight: 700;
+    color:rgb(231, 127, 0);
 }
 .project-todo-list ul li {
     font-style: italic;
 }
 
 .project-todo-list ul li::before {
-    content:"⭐️ "
+    content:"✔ "
 }
 
 .project-todo-list ul li:hover {
     cursor: pointer;
 }
+
+.add-todo input[type="text"] {
+    border: none;
+    border-bottom: 2px solid rgb(231, 127, 0);
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.add-todo input[type="text"]:focus {
+    border: 2px solid rgb(231, 127, 0);
+}
+
+.edit-btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(13, 156, 22);
+    color: white;
+    margin-right: 8px;
+}
+
+.edit-btn:hover {
+    cursor: pointer;
+    border: 2px solid rgb(13, 156, 22);
+    background-color: white;
+    color: rgb(13, 156, 22);
+}
+
+.delete-btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(156 13 13);
+    color: white;
+}
+
+.delete-btn:hover {
+    cursor: pointer;
+    border: 2px solid rgb(156 13 13);
+    background-color: white;
+    color: rgb(156, 13, 13);
+}
+
 
 
 @media screen and (max-width: 500px) {
