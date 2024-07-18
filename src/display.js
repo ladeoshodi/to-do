@@ -8,7 +8,7 @@ const Display = (function () {
         projectNavList.replaceChildren();
         const ul = document.createElement("ul");
         if (projects.length === 0) {
-            projectList.textContent = "No projects to display";
+            projectNavList.textContent = "No projects to display";
             return;
         } 
         for (let project of projects) {
