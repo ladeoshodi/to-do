@@ -27,6 +27,12 @@ const Eventhandler = (function () {
         )
         project.save();
 
+        // clear the input form
+        dialogProjectName.value = "";
+        dialogProjectDescription.value = "";
+        dialogProjectDueDate.value = "";
+        dialogProjectTags.value = "";
+
         // reload the main and nav
         dialogForm.close();
         Display.displayProjectsMain(StorageDB.retrieveAll());

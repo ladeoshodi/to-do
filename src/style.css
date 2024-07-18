@@ -151,7 +151,7 @@ ul > li {
     color: rgb(13, 156, 22);
 }
 
-.delete-btn {
+.delete-btn, #cancel-project-btn, #cancel-edit-project-btn {
     padding: 10px 15px;
     border-radius: 5px;
     border: none;
@@ -159,13 +159,51 @@ ul > li {
     color: white;
 }
 
-.delete-btn:hover {
+.delete-btn:hover, #cancel-project-btn:hover, #cancel-edit-project-btn:hover {
     cursor: pointer;
     border: 2px solid rgb(156 13 13);
     background-color: white;
     color: rgb(156, 13, 13);
 }
 
+/* style modal */
+#dialog-form, #dialog-edit-form {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    width: 600px;
+    padding: 20px 20px;
+}
+
+#dialog-form > form > p, #dialog-edit-form > form > p {
+    font-size: 2rem;
+}
+
+#dialog-form div {
+    text-align: left;
+}
+
+#dialog-form input[type="text"], #dialog-edit-form input[type="text"] {
+    border: none;
+    border-bottom: 2px solid rgb(231, 127, 0);
+    width: 100%;
+    padding: 12px 0;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+#dialog-form input[type="text"]:focus, #dialog-edit-form input[type="text"]:focus {
+    border: 2px solid rgb(231, 127, 0);
+}
+
+#dialog-edit-form * {
+    margin-bottom: 10px;
+}
+
+::backdrop {
+    background-color: rgba(215, 190, 188, 0.41);
+}
 
 
 @media screen and (max-width: 500px) {
