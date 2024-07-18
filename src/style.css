@@ -40,7 +40,7 @@ ul > li {
 
 .nav {
     grid-area: nav;
-    padding: 15px 0;
+    padding: 15px 8px;
     background-color: white;
     text-align: center;
 }
@@ -58,6 +58,11 @@ ul > li {
     background-color: rgb(231, 127, 0);
     color: white;
     cursor: pointer;
+}
+
+.nav .mobile-nav {
+    /* text-align: left; */
+    display: none;
 }
 
 .project-btn {
@@ -199,7 +204,7 @@ ul > li {
     border: none;
     border-bottom: 2px solid rgb(231, 127, 0);
     width: 100%;
-    padding: 12px 0;
+    padding: 12px 5px;
     margin: 8px 0;
     box-sizing: border-box;
 }
@@ -224,6 +229,25 @@ ul > li {
         "header"
         "nav"
         "main";
+    }
+    .nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .nav .mobile-nav {
+        text-align: left;
+        display: block;
+        font-size: 1.5rem;
+    }
+    .mobile-hidden {
+        display: none;
+    }
+    .mobile-margin-bottom {
+        margin-bottom: 0;
+    }
+    #open-dialog-button {
+        margin-bottom: 0;
     }
 }
 

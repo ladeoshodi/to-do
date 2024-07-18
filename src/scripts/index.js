@@ -2,7 +2,7 @@ import { StorageDB } from "./storage.js";
 import { Display } from "./display.js";
 import { Eventhandler } from "./utils.js";
 
-const openDialogForm = document.querySelector("#open-dialog-form");
+const openDialogButton = document.querySelector("#open-dialog-button");
 const dialogForm = document.querySelector("#dialog-form");
 const addProjectBtn = document.querySelector("#add-project-btn");
 const editProjectBtn = document.querySelector("#edit-project-btn");
@@ -17,7 +17,7 @@ Display.displayProjectsNav(StorageDB.retrieveAll());
 Display.displayProjectsMain(StorageDB.retrieveAll());
 
 // Open dialog box
-openDialogForm.addEventListener("click", () => {
+openDialogButton.addEventListener("click", () => {
     dialogForm.showModal();
 });
 
@@ -52,4 +52,22 @@ viewUpcoming.addEventListener("click", (e) => {
         return project.dueDate > new Date().toJSON().slice(0, 10)
     });
     Display.displayProjectsMain(upcomingProjects);
+});
+
+// trigger mobile menu
+const mobileNav = document.querySelector(".mobile-nav");
+const nav = document.querySelector(".nav");
+const mobileHidden = document.querySelectorAll(".mobile-hidden");
+const mobileMarginBottom = document.querySelectorAll(".mobile-margin-bottom");
+
+mobileNav.addEventListener("click", () => {
+    const navCompStyle = window.getComputedStyle(nav);
+    mobileHidden.forEach((elemClass) => {
+        elemClass.classList.toggle("mobile-hidden");
+    });
+    mobileMarginBottom.forEach((elemClass) => {
+        elemClass.style.marginBottom = elemClass.style.marginBottom === "" ? "10px" : "";
+    });
+    openDialogButton.style.marginBottom = openDialogButton.style.marginBottom === "" ? "20px" : "";
+    nav.style.display = navCompStyle.getPropertyValue("display") === "flex" ? "block" : "flex";
 });

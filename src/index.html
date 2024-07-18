@@ -11,15 +11,16 @@
 <body>
     <header class="header">My Todo App</header>
     <nav class="nav">
-        <div class="date-filters">
+        <i class="mobile-nav mobile-margin-bottom fa-solid fa-bars"></i>
+        <div class="date-filters mobile-hidden">
             <ul>
                 <li id="view-today">Today</li>
                 <li id="view-upcoming">Upcoming</li>
                 <li id="view-all">All</li>
             </ul>
         </div>
-        <div class="projects">
-            <button id="open-dialog-form" class="project-btn">Add New Project</button>
+        <div class="projects mobile-margin-bottom">
+            <button id="open-dialog-button" class="project-btn">Add New Project</button>
             <dialog id="dialog-form">
                 <form>
                     <p>Create a new project</p>
@@ -43,8 +44,8 @@
                     <button id="add-project-btn" class="project-btn">Add project</button>
                 </form>
             </dialog>
-            <hr >
-            <div class="project-list"></div>
+            <hr class="mobile-hidden">
+            <div class="project-list mobile-hidden"></div>
         </div>
     </nav>
     <main>
