@@ -72,30 +72,24 @@ const Display = (function () {
 
             //display for project todo list
             // create a fieldset to hold the todo list
-            const todoFieldset = document.createElement("fieldset");
-            todoFieldset.classList.add("project-todo-list");
-            const todoLegend = document.createElement("legend");
-            todoLegend.textContent = "Todo List:";
-            todoFieldset.appendChild(todoLegend);
+            const todoList = document.createElement("div");
+            todoList.classList.add("project-todo-list");
+            todoList.textContent = "Todo List:";
+            const ul = document.createElement("ul");
             for (let [index, todo] of project.todoList.entries()) {
-                const todoItem = document.createElement("div");
-                // create a checkbox for each todo item
-                const checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                checkbox.name = `todo-${index}-${project.id}`;
-                checkbox.id = `todo-${index}-${project.id}`;
-                checkbox.value = todo;
-                // add event listener to each checkbox
-                checkbox.addEventListener("change", Eventhandler.deleteTodoItem);
-                // create a label for each todo item
-                const label = document.createElement("label");
-                label.htmlFor = `todo-${index}-${project.id}`;
-                label.textContent = todo;
+                // create each todo item as a list item
+                const todoItem = document.createElement("li");
+                todoItem.id = `todo-${index}-${project.id}`;
+                todoItem.dataset.value = todo;
+                todoItem.textContent = todo;
+                // add event listener to each todo item
+                todoItem.addEventListener("click", Eventhandler.deleteTodoItem);
                 
-                todoItem.appendChild(checkbox);
-                todoItem.appendChild(label);
-                todoFieldset.appendChild(todoItem);
+                ul.appendChild(todoItem);
             }
+            todoList.appendChild(ul);
+            projectSection.appendChild(todoList);
+
             // add new todo list button
             const addTodo = document.createElement("div");
             const addTodoLabel = document.createElement("label");
@@ -110,9 +104,9 @@ const Display = (function () {
             addTodoInput.addEventListener("keydown", Eventhandler.createNewTodo);
             addTodo.appendChild(addTodoLabel);
             addTodo.appendChild(addTodoInput);
-            todoFieldset.appendChild(addTodo);
 
-            projectSection.appendChild(todoFieldset);
+            projectSection.appendChild(addTodo);
+
 
             // create an edit button
             const editBtn = document.createElement("button");

@@ -81,7 +81,7 @@ const Eventhandler = (function () {
     }
 
     function deleteTodoItem(e) {
-        StorageDB.removeArrayItem(e.target.id.split("-")[2], "todoList", e.target.value);
+        StorageDB.removeArrayItem(e.target.id.split("-")[2], "todoList", e.target.dataset.value);
     
         // reload the main div
         Display.displayProjectsMain(StorageDB.retrieveAll());
