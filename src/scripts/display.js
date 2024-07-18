@@ -49,6 +49,10 @@ const Display = (function () {
 
             // display for project description
             const projectDescription = document.createElement("div");
+            if (project.description === "") {
+                project.description = "No description given";
+                projectDescription.style.fontStyle = "italic";
+            }
             projectDescription.textContent = project.description;
             projectDescription.classList.add("project-description");
             projectSection.appendChild(projectDescription);

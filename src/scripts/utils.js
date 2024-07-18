@@ -81,10 +81,8 @@ const Eventhandler = (function () {
     }
 
     function deleteTodoItem(e) {
+        e.target.style.textDecoration = "line-through";
         StorageDB.removeArrayItem(e.target.id.split("-")[2], "todoList", e.target.dataset.value);
-    
-        // reload the main div
-        Display.displayProjectsMain(StorageDB.retrieveAll());
     }
     
     function viewProject(e) {

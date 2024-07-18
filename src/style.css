@@ -81,7 +81,7 @@ ul > li {
 }
 
 .section > div {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .project-title {
@@ -90,7 +90,7 @@ ul > li {
 }
 .project-description {
     font-size: 1.3rem;
-    font-weight: 400;
+    font-weight: lighter;
 }
 
 .project-description::before {
@@ -110,8 +110,19 @@ ul > li {
     border: none;
 }
 
-.project-todo-list legend {
+.project-todo-list::first-line {
     font-weight: 700;
+}
+.project-todo-list ul li {
+    font-style: italic;
+}
+
+.project-todo-list ul li::before {
+    content:"⭐️ "
+}
+
+.project-todo-list ul li:hover {
+    cursor: pointer;
 }
 
 
