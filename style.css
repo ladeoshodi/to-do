@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    background-color: #f6ebeb;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    display: grid;
+    grid-template-columns: 20% 1fr;
+    grid-template-areas: 
+        "header header"
+        "nav main";
+}
+
+a {
+    text-decoration: none;
+    color: rgb(231, 127, 0);
+}
+
+ul > li {
+    list-style: none;
+}
+
+.header {
+    grid-area: header;
+    padding: 15px;
+    background-color: rgb(21, 21, 147);
+    color: rgb(231, 127, 0);
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: .2rem;
+}
+
+.nav {
+    grid-area: nav;
+    padding: 15px 8px;
+    background-color: white;
+    text-align: center;
+}
+
+.nav * {
+    margin-bottom: 10px;
+}
+
+.nav li {
+    padding: 8px;
+    color: rgb(231, 127, 0);
+}
+
+.nav li:hover {
+    background-color: rgb(231, 127, 0);
+    color: white;
+    cursor: pointer;
+}
+
+.nav .mobile-nav {
+    /* text-align: left; */
+    display: none;
+}
+
+.project-btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(231, 127, 0);
+    color: white;
+    margin-bottom: 20px;
+}
+
+.project-btn:hover {
+    cursor: pointer;
+    border: 2px solid rgb(231, 127, 0);
+    background-color: white;
+    color: rgb(231, 127, 0);
+}
+
+
+.main {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* section div styling */
+.section {
+    padding: 20px;
+    margin: 20px 15px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.section > div {
+    margin-bottom: 10px;
+}
+
+.project-title {
+    font-size: 2rem;
+    font-weight: 700;
+}
+.project-description {
+    font-size: 1.3rem;
+    font-weight: lighter;
+}
+
+.project-description::before {
+    content: "🗒️ ";
+}
+
+.project-due-date::before {
+    content: "⏰ ";
+}
+
+.project-tags {
+    color: #151593;
+    font-weight: 500;
+}
+
+.project-todo-list::first-line {
+    font-weight: 700;
+    color:rgb(231, 127, 0);
+}
+.project-todo-list ul li {
+    font-style: italic;
+}
+
+.project-todo-list ul li::before {
+    content:"✔ "
+}
+
+.project-todo-list ul li:hover {
+    cursor: pointer;
+}
+
+.add-todo input[type="text"] {
+    border: none;
+    border-bottom: 2px solid rgb(231, 127, 0);
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.add-todo input[type="text"]:focus {
+    border: 2px solid rgb(231, 127, 0);
+}
+
+.edit-btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(13, 156, 22);
+    color: white;
+    margin-right: 8px;
+}
+
+.edit-btn:hover {
+    cursor: pointer;
+    border: 2px solid rgb(13, 156, 22);
+    background-color: white;
+    color: rgb(13, 156, 22);
+}
+
+.delete-btn, #cancel-project-btn, #cancel-edit-project-btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(156 13 13);
+    color: white;
+}
+
+.delete-btn:hover, #cancel-project-btn:hover, #cancel-edit-project-btn:hover {
+    cursor: pointer;
+    border: 2px solid rgb(156 13 13);
+    background-color: white;
+    color: rgb(156, 13, 13);
+}
+
+/* style modal */
+#dialog-form, #dialog-edit-form {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    width: 600px;
+    padding: 20px 20px;
+}
+
+#dialog-form > form > p, #dialog-edit-form > form > p {
+    font-size: 2rem;
+}
+
+#dialog-form div {
+    text-align: left;
+}
+
+#dialog-form input[type="text"], #dialog-edit-form input[type="text"] {
+    border: none;
+    border-bottom: 2px solid rgb(231, 127, 0);
+    width: 100%;
+    padding: 12px 5px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+#dialog-form input[type="text"]:focus, #dialog-edit-form input[type="text"]:focus {
+    border: 2px solid rgb(231, 127, 0);
+}
+
+#dialog-edit-form * {
+    margin-bottom: 10px;
+}
+
+::backdrop {
+    background-color: rgba(215, 190, 188, 0.41);
+}
+
+
+@media screen and (max-width: 500px) {
+    body {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        "header"
+        "nav"
+        "main";
+    }
+    .nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .nav .mobile-nav {
+        text-align: left;
+        display: block;
+        font-size: 1.5rem;
+    }
+    .mobile-hidden {
+        display: none;
+    }
+    .mobile-margin-bottom {
+        margin-bottom: 0;
+    }
+    #open-dialog-button {
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (min-width: 750px) {
+    body {
+        grid-auto-rows: 86px 1fr;
+    }  
+}
