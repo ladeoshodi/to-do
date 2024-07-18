@@ -1,13 +1,15 @@
 {
-  "name": "to-do",
+  "name": "to-do-js-app",
   "version": "1.0.0",
   "description": "To Do application with basic CRUD functionalities",
-  "main": "index.js",
+  "private": true,
+  "main": "src/scripts/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --progress",
     "watch": "webpack --progress --watch",
-    "start": "webpack serve --open"
+    "start": "webpack serve --open",
+    "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "author": "",
   "license": "ISC",
